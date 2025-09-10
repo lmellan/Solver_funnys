@@ -50,14 +50,13 @@ El modelo se resuelve con el solver **CBC (Coin-or Branch and Cut)** a través d
      * `solucion_plantas.csv` → Configuración de plantas abiertas.
      * `solucion_flujos.csv` → Plan de transporte con detalle de volúmenes, regiones y años.
 
----
-
+ 
 ## Instrucciones de uso de la aplicación
 
 Una vez ejecutado el solver (`solve_funnys.py`), aparecerá una salida en consola similar a la siguiente:
 
 ```
-Status: Optimal
+Estado: Optimal
 Valor de la función objetivo: 445,611,774.16
 
 === Apertura de plantas ===
