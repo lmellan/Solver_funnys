@@ -174,15 +174,15 @@ if "Rancagua" in I and "pequena" in J and "grande" in J:
 
 #  SOLVER  
 m.solve(pl.PULP_CBC_CMD(msg=False))
-print("Status:", pl.LpStatus[m.status])
-print("Objective value:", pl.value(m.objective))
+print("Estado:", pl.LpStatus[m.status])
+print("Valor de la función objetivo:", round(pl.value(m.objective)))
 
 # RESULTADOS 
 x_rows, y_rows = [], []
 for i in I:
     for j in J:
         val = x[i][j].value() or 0.0
-        x_rows.append({"city": i, "plant_type": j, "open": val})
+        x_rows.append({"ciudad": i, "tipo_planta": j, "abierta": val})
 
 for i in I:
     for k in K:
@@ -190,7 +190,13 @@ for i in I:
             for t in T:
                 val = y[i][k][f][t].value() or 0.0
                 if abs(val) > 1e-6:
-                    y_rows.append({"city": i, "region": k, "transport": f, "year": t, "flow": val})
+                    y_rows.append({
+                        "ciudad": i,
+                        "region": k,
+                        "transporte": f,
+                        "año": t,
+                        "flujo": val
+                    })
 
 print("\n=== Variables x (apertura de plantas) ===")
 for i in I:
@@ -205,6 +211,7 @@ for i in I:
                 print(f"y[{i},{k},{f},{t}] = {y[i][k][f][t].value()}")
 
 if TRY_WRITE_CSV:
-    pd.DataFrame(x_rows).to_csv("solution_plants.csv", index=False)
-    pd.DataFrame(y_rows).to_csv("solution_flows.csv", index=False)
-    print("\nWrote solution_plants.csv and solution_flows.csv")
+    pd.DataFrame(x_rows).to_csv("solucion_plantas.csv", index=False)
+    pd.DataFrame(y_rows).to_csv("solucion_flujos.csv", index=False)
+ 
+
